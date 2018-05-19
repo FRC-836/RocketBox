@@ -27,8 +27,8 @@ int prevFireLightState = HIGH;
 int prevFired = 0;
 
 
-void setup() {
-
+void setup() 
+{
   //begin serial communication
   Serial.begin(9600);
 
@@ -47,11 +47,10 @@ void setup() {
   pinMode(FIRE_PIN, INPUT);
   pinMode(LEFT_ENABLE_PIN, INPUT);
   pinMode(RIGHT_ENABLE_PIN, INPUT); 
-
 }
 
-void loop() {
-
+void loop() 
+{
   int leftEnabledState = digitalRead(LEFT_ENABLE_PIN);
   int rightEnabledState = digitalRead(RIGHT_ENABLE_PIN);
 
@@ -63,11 +62,11 @@ void loop() {
   if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
   {
     fireLightState = LOW;
-  }
+  } //end  if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
   else
   {
     fireLightState = HIGH;
-  }
+  } //end  else
 
   // If the previous state of the fire enable is different then the current state
   if( prevFireLightState != fireLightState )
@@ -79,17 +78,16 @@ void loop() {
     if( fireLightState == LOW )
     {
       Serial.println("Fire Button Enabled");
-    }
+    } //end  if( fireLightState == LOW )
     else
     {
       Serial.println("Fire Button Disabled");
-    }
-  }
+    } //end  else
+  } //end  if( prevFireLightState != fireLightState )
 
   // If the fire button as been pressed and not held down for multiple loops
   if( fire == HIGH && prevFired == 0) // If fire button is pressed
   {
-
     // If fire enable state is low (low for SainSmart logic)
     if( fireLightState == LOW )
     {
@@ -102,7 +100,7 @@ void loop() {
         digitalWrite(LEFT_FIRE_PIN, HIGH);
         delay(FIRE_DELAY);
         prevFired = 1;
-      }
+      } //end  if( leftEnabledState == HIGH && rightEnabledState == LOW )
       else if( leftEnabledState == LOW && rightEnabledState == HIGH )
       {
         // Only firing right rocket
@@ -112,7 +110,7 @@ void loop() {
         digitalWrite(RIGHT_FIRE_PIN, HIGH);
         delay(FIRE_DELAY);
         prevFired = 1;
-      }
+      } //end  else if( leftEnabledState == LOW && rightEnabledState == HIGH )
       else if( leftEnabledState == HIGH && rightEnabledState == HIGH )
       {
         // Fire both rockets!
@@ -124,15 +122,13 @@ void loop() {
         digitalWrite(RIGHT_FIRE_PIN, HIGH);
         delay(FIRE_DELAY);
         prevFired = 1;
-      }
-    }
-  }
+      } //end  else if( leftEnabledState == HIGH && rightEnabledState == HIGH )
+    } //end  if( fireLightState == LOW )
+  } //end  if( fire == HIGH && prevFired == 0) // If fire button is pressed
   // If the fire button is not pressed during the current loop, reset prevFired
   else if (fire == LOW)
   {
     prevFired = 0;
-  }
-
-  
-
+  } //end  else if (fire == LOW)
 }
+
