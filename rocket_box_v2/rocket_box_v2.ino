@@ -29,16 +29,20 @@ int prevFired = 0;
 
 void setup() {
 
+  //begin serial communication
   Serial.begin(9600);
 
-  digitalWrite(FIRE_LIGHT_PIN, HIGH);
-  digitalWrite(LEFT_FIRE_PIN, HIGH);
-  digitalWrite(RIGHT_FIRE_PIN, HIGH);
-
+  //setup the output pins
   pinMode(FIRE_LIGHT_PIN, OUTPUT);
   pinMode(LEFT_FIRE_PIN, OUTPUT);
   pinMode(RIGHT_FIRE_PIN, OUTPUT);
 
+  //set the outputs to a known state
+  digitalWrite(FIRE_LIGHT_PIN, HIGH);
+  digitalWrite(LEFT_FIRE_PIN, HIGH);
+  digitalWrite(RIGHT_FIRE_PIN, HIGH);
+
+  //setup the input pins
   pinMode(DEADMAN_SWITCH_PIN, INPUT);
   pinMode(FIRE_PIN, INPUT);
   pinMode(LEFT_ENABLE_PIN, INPUT);
