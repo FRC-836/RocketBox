@@ -1,4 +1,4 @@
-#include "DebounceSignal.h"
+#include "DebounceTimer.h"
 
 
 DebounceTimer::DebounceTimer(int pin) :
