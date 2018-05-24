@@ -1,12 +1,14 @@
+#include "DebounceTimer.h"
+
 // Deadman switch to control firing authority to prevent accidental / unpermitted firing 
-const int DEADMAN_SWITCH_PIN = 10;
+DebounceTimer deadmanSwitch(10);
 
 // Gigantic red FIRE button
-const int FIRE_PIN = 7;
+DebounceTimer fireButton(7);
 
 // Rocker controlled enabled switches
-const int LEFT_ENABLE_PIN = 8;
-const int RIGHT_ENABLE_PIN = 9;
+DebounceTimer leftEnableSwitch(8);
+DebounceTimer rightEnableSwitch(8);
 
 // Outputs
 const int FIRE_LIGHT_PIN = 2;
@@ -25,7 +27,6 @@ int prevFireLightState = HIGH;
 
 // Prevents fire button from being held down
 int prevFired = 0;
-
 
 void setup() 
 {
@@ -51,12 +52,12 @@ void setup()
 
 void loop() 
 {
-  int leftEnabledState = digitalRead(LEFT_ENABLE_PIN);
-  int rightEnabledState = digitalRead(RIGHT_ENABLE_PIN);
+  int leftEnabledState = leftEnableSwitch.debounceSignal(20);
+  int rightEnabledState = rightEnableSwitch.debounceSignal(20);
 
-  int deadmanSwitchState = digitalRead(DEADMAN_SWITCH_PIN);
+  int deadmanSwitchState = deadmanSwitch(20);
 
-  int fire = digitalRead(FIRE_PIN);
+  int fire = fireButton(20);
 
   // If either of the rockets are enabled and the deadman switch is pressed
   if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
