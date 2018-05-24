@@ -1,6 +1,8 @@
 #ifndef DEBOUNCE_TIMER_H
 #define DEBOUNCE_TIMER_H
 
+#include "Arduino.h"
+
 class DebounceTimer
 {
   private:
@@ -12,6 +14,6 @@ class DebounceTimer
     DebounceTimer(int pin);
 
     int debounceSignal(unsigned long debounceTimeMs);
-}
+};
 
 #endif
