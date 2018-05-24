@@ -4,6 +4,9 @@
 DebounceTimer::DebounceTimer(int pin) :
   m_pin(pin)
 {
+  //setup the pin
+  pinMode(m_pin, INPUT);
+  
   //get initial signal value
   m_prevSignal = digitalRead(m_pin);
 }
