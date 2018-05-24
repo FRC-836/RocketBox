@@ -42,12 +42,6 @@ void setup()
   digitalWrite(FIRE_LIGHT_PIN, HIGH);
   digitalWrite(LEFT_FIRE_PIN, HIGH);
   digitalWrite(RIGHT_FIRE_PIN, HIGH);
-
-  //setup the input pins
-  pinMode(DEADMAN_SWITCH_PIN, INPUT);
-  pinMode(FIRE_PIN, INPUT);
-  pinMode(LEFT_ENABLE_PIN, INPUT);
-  pinMode(RIGHT_ENABLE_PIN, INPUT); 
 }
 
 void loop() 
@@ -55,9 +49,9 @@ void loop()
   int leftEnabledState = leftEnableSwitch.debounceSignal(20);
   int rightEnabledState = rightEnableSwitch.debounceSignal(20);
 
-  int deadmanSwitchState = deadmanSwitch(20);
+  int deadmanSwitchState = deadmanSwitch.debounceSignal(20);
 
-  int fire = fireButton(20);
+  int fire = fireButton.debounceSignal(20);
 
   // If either of the rockets are enabled and the deadman switch is pressed
   if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
