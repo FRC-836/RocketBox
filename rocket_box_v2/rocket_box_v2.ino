@@ -77,7 +77,7 @@ void loop()
   // If either of the rockets are enabled and the deadman switch is pressed
   if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
   {
-    fireLightState = LOW;
+    fireLightState = LOW; //LOW because the relay outputs on power on a logic LOW
   } //end  if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
   else
   {
@@ -90,15 +90,6 @@ void loop()
     // Update the fire enable state
     prevFireLightState = fireLightState;
     digitalWrite(FIRE_LIGHT_PIN, fireLightState);
-
-    if( fireLightState == LOW )
-    {
-      Serial.println("Fire Button Enabled");
-    } //end  if( fireLightState == LOW )
-    else
-    {
-      Serial.println("Fire Button Disabled");
-    } //end  else
   } //end  if( prevFireLightState != fireLightState )
 
   // If the fire button as been pressed and not held down for multiple loops
@@ -110,7 +101,6 @@ void loop()
       if( leftEnabledState == HIGH && rightEnabledState == LOW )
       {
         // Only firing left rocket
-        Serial.println("Firing Left Rocket");
         digitalWrite(LEFT_FIRE_PIN, LOW);
         delay(FIRE_TIME);
         digitalWrite(LEFT_FIRE_PIN, HIGH);
@@ -120,7 +110,6 @@ void loop()
       else if( leftEnabledState == LOW && rightEnabledState == HIGH )
       {
         // Only firing right rocket
-        Serial.println("Firing Right Rocket");
         digitalWrite(RIGHT_FIRE_PIN, LOW);
         delay(FIRE_TIME);
         digitalWrite(RIGHT_FIRE_PIN, HIGH);
@@ -130,7 +119,6 @@ void loop()
       else if( leftEnabledState == HIGH && rightEnabledState == HIGH )
       {
         // Fire both rockets!
-        Serial.println("Firing Both Rockets");
         digitalWrite(LEFT_FIRE_PIN, LOW);
         digitalWrite(RIGHT_FIRE_PIN, LOW);
         delay(FIRE_TIME);
