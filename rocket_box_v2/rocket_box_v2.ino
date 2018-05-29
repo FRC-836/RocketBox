@@ -1,5 +1,7 @@
 #include "DebounceTimer.h"
 
+#define OUTPUT_ENABLED
+
 // Deadman switch to control firing authority to prevent accidental / unpermitted firing 
 DebounceTimer deadmanSwitch(10);
 
@@ -46,13 +48,32 @@ void setup()
 
 void loop() 
 {
-  int leftEnabledState = leftEnableSwitch.debounceSignal(20);
-  int rightEnabledState = rightEnableSwitch.debounceSignal(20);
-
-  int deadmanSwitchState = deadmanSwitch.debounceSignal(20);
-
-  int fire = fireButton.debounceSignal(20);
-
+  int leftEnabledState = leftEnableSwitch.debounceSignal(2000);
+  #ifdef OUTPUT_ENABLED
+  Serial.print("left enable switch: ");
+  Serial.print(leftEnabledState);
+  Serial.print("\t");
+  #endif
+  int rightEnabledState = rightEnableSwitch.debounceSignal(2000);
+  #ifdef OUTPUT_ENABLED
+  Serial.print("right enable switch: ");
+  Serial.print(rightEnabledState);
+  Serial.print("\t");
+  #endif
+  int deadmanSwitchState = deadmanSwitch.debounceSignal(2000);
+  #ifdef OUTPUT_ENABLED
+  Serial.print("deadman switch: ");
+  Serial.print(deadmanSwitchState);
+  Serial.print("\t");
+  #endif
+  
+  int fire = fireButton.debounceSignal(2000);
+  #ifdef OUTPUT_ENABLED
+  Serial.print("fireButton: ");
+  Serial.print(fire);
+  Serial.print("\t");
+  #endif
+  
   // If either of the rockets are enabled and the deadman switch is pressed
   if( deadmanSwitchState == HIGH && ( ( leftEnabledState == HIGH ) || ( rightEnabledState == HIGH ) ) )
   {
@@ -125,5 +146,6 @@ void loop()
   {
     prevFired = 0;
   } //end  else if (fire == LOW)
+  Serial.println();
 }
 
