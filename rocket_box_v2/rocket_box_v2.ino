@@ -98,35 +98,14 @@ void loop()
     // If fire enable state is low (low for SainSmart logic)
     if( fireLightState == LOW )
     {
-      if( leftEnabledState == HIGH && rightEnabledState == LOW )
-      {
-        // Only firing left rocket
-        digitalWrite(LEFT_FIRE_PIN, LOW);
-        delay(FIRE_TIME);
-        digitalWrite(LEFT_FIRE_PIN, HIGH);
-        delay(FIRE_DELAY);
-        prevFired = 1;
-      } //end  if( leftEnabledState == HIGH && rightEnabledState == LOW )
-      else if( leftEnabledState == LOW && rightEnabledState == HIGH )
-      {
-        // Only firing right rocket
-        digitalWrite(RIGHT_FIRE_PIN, LOW);
-        delay(FIRE_TIME);
-        digitalWrite(RIGHT_FIRE_PIN, HIGH);
-        delay(FIRE_DELAY);
-        prevFired = 1;
-      } //end  else if( leftEnabledState == LOW && rightEnabledState == HIGH )
-      else if( leftEnabledState == HIGH && rightEnabledState == HIGH )
-      {
-        // Fire both rockets!
-        digitalWrite(LEFT_FIRE_PIN, LOW);
-        digitalWrite(RIGHT_FIRE_PIN, LOW);
-        delay(FIRE_TIME);
-        digitalWrite(LEFT_FIRE_PIN, HIGH);
-        digitalWrite(RIGHT_FIRE_PIN, HIGH);
-        delay(FIRE_DELAY);
-        prevFired = 1;
-      } //end  else if( leftEnabledState == HIGH && rightEnabledState == HIGH )
+      // Fire both rockets!
+      digitalWrite(LEFT_FIRE_PIN, !leftEnabledState); //buttons return logic HIGH when fire is allowed, relay needs LOW to fire
+      digitalWrite(RIGHT_FIRE_PIN, !rightEnabledState);
+      delay(FIRE_TIME);
+      digitalWrite(LEFT_FIRE_PIN, HIGH);
+      digitalWrite(RIGHT_FIRE_PIN, HIGH);
+      delay(FIRE_DELAY);
+      prevFired = 1;
     } //end  if( fireLightState == LOW )
   } //end  if( fire == HIGH && prevFired == 0) // If fire button is pressed
   // If the fire button is not pressed during the current loop, reset prevFired
