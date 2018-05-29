@@ -10,7 +10,7 @@ DebounceTimer fireButton(7);
 
 // Rocker controlled enabled switches
 DebounceTimer leftEnableSwitch(8);
-DebounceTimer rightEnableSwitch(8);
+DebounceTimer rightEnableSwitch(9);
 
 // Outputs
 const int FIRE_LIGHT_PIN = 2;
