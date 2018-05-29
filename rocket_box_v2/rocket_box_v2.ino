@@ -48,26 +48,26 @@ void setup()
 
 void loop() 
 {
-  int leftEnabledState = leftEnableSwitch.debounceSignal(2000);
+  int leftEnabledState = leftEnableSwitch.debounceSignal(20);
   #ifdef OUTPUT_ENABLED
   Serial.print("left enable switch: ");
   Serial.print(leftEnabledState);
   Serial.print("\t");
   #endif
-  int rightEnabledState = rightEnableSwitch.debounceSignal(2000);
+  int rightEnabledState = rightEnableSwitch.debounceSignal(20);
   #ifdef OUTPUT_ENABLED
   Serial.print("right enable switch: ");
   Serial.print(rightEnabledState);
   Serial.print("\t");
   #endif
-  int deadmanSwitchState = deadmanSwitch.debounceSignal(2000);
+  int deadmanSwitchState = deadmanSwitch.debounceSignal(20);
   #ifdef OUTPUT_ENABLED
   Serial.print("deadman switch: ");
   Serial.print(deadmanSwitchState);
   Serial.print("\t");
   #endif
   
-  int fire = fireButton.debounceSignal(2000);
+  int fire = fireButton.debounceSignal(20);
   #ifdef OUTPUT_ENABLED
   Serial.print("fireButton: ");
   Serial.print(fire);
